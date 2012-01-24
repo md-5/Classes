@@ -1,0 +1,20 @@
+name: Classes
+version: 1.0
+description: Custom permission based class plugin for iconicraft
+author: md_5
+
+main: com.md_5.classes.Classes
+depend: [bPermissions, iConomy]
+
+commands:
+  class:
+    description: The core Classes command
+    permission: classes.use
+
+permissions:
+  classes.use:
+    description: Ability to use any Classes commands
+    default: true
+  classes.free:
+    description: Exempt from payement
+    default: op

@@ -1,0 +1,9 @@
+## Classes by md_5
+world: survival
+classes:
+  class1: # The permission is classes.class1
+    description: The class for derps
+    cost: 1
+  class2:
+    description: The class for herps
+    cost: 1
