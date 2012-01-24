@@ -1,7 +1,7 @@
 package com.md_5.classes;
 
-import com.iCo6.system.Account;
-import com.iCo6.system.Holdings;
+import com.iConomy.iConomy;
+import com.iConomy.system.Holdings;
 import de.bananaco.permissions.Permissions;
 import de.bananaco.permissions.interfaces.PermissionSet;
 import java.util.ArrayList;
@@ -16,7 +16,6 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class Classes extends JavaPlugin {
 
     public String world;
-    public double cost;
     public ArrayList<Class> classes = new ArrayList<Class>();
     public PermissionSet worldPermissions;
 
@@ -92,7 +91,7 @@ public class Classes extends JavaPlugin {
         if (args[0].equalsIgnoreCase("choose")) {
             Class clazz = getClass(args[1]);
             if (clazz != null) {
-                Holdings account = new Account(sender.getName()).getHoldings();
+                Holdings account = iConomy.getAccount(player).getHoldings();
                 if (!account.hasEnough(clazz.cost)) {
                     sender.sendMessage(ChatColor.YELLOW + "Error! You cannot afford to change your class!");
                     return true;
