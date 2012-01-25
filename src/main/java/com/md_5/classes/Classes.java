@@ -69,9 +69,9 @@ public class Classes extends JavaPlugin {
         final Class prevClass = getPlayerClass(player);
         // Help
         if (args.length == 0) {
-            sender.sendMessage(ChatColor.DARK_GRAY + "---====" + ChatColor.GRAY + "[" + ChatColor.RED + "DarkVoid" + ChatColor.GRAY + " - " + ChatColor.WHITE + "Classes Help" + ChatColor.GRAY + "]" + ChatColor.DARK_GRAY + "====---");
-            sender.sendMessage(ChatColor.GREEN + "Name: [" + ChatColor.WHITE + player + ChatColor.GREEN + "]");
-            sender.sendMessage(ChatColor.GREEN + "Current Class: " + ChatColor.WHITE + getName(prevClass) + ChatColor.GRAY + " - " + ChatColor.WHITE + "[" + getDescription(prevClass) + "]");
+            sender.sendMessage(ChatColor.DARK_GRAY + "---====" + ChatColor.GRAY + "[ " + ChatColor.RED + "DarkVoid" + ChatColor.GRAY + " - " + ChatColor.GOLD + "Classes Help" + ChatColor.GRAY + " ]" + ChatColor.DARK_GRAY + "====---");
+            sender.sendMessage(ChatColor.GREEN + "Name: " + ChatColor.WHITE + player);
+            sender.sendMessage(ChatColor.GREEN + "Current Class: " + ChatColor.WHITE + getName(prevClass) + ChatColor.GRAY + " - " + ChatColor.WHITE + "[ " + getDescription(prevClass) + " ]");
             sender.sendMessage(ChatColor.GREEN + " /class list");
             sender.sendMessage(ChatColor.GREEN + " /class choose " + ChatColor.BLUE + "<class name>");
             sender.sendMessage(ChatColor.GREEN + " /class who " + ChatColor.BLUE + "<player name>");
@@ -81,9 +81,7 @@ public class Classes extends JavaPlugin {
         if (args[0].equalsIgnoreCase("list")) {
             sender.sendMessage(ChatColor.BLUE + "You can join the following classes:");
             for (Class clazz : classes) {
-                if (sender.hasPermission("classes." + clazz.name)) {
-                    sender.sendMessage(ChatColor.GREEN + clazz.name + " - " + clazz.description + " - $" + clazz.cost);
-                }
+                sender.sendMessage(ChatColor.GREEN + clazz.name + " - " + clazz.description + " - $" + clazz.cost);
             }
             sender.sendMessage(ChatColor.AQUA + "To choose a class, type /class choose <class name>");
             return true;
@@ -97,7 +95,9 @@ public class Classes extends JavaPlugin {
                     sender.sendMessage(ChatColor.YELLOW + "Error! You cannot afford to change your class!");
                     return true;
                 }
-                if (!sender.hasPermission("classes.class" + clazz.name)) {
+                if (!sender.hasPermission("classes." + clazz.name)) {
+                    sender.sendMessage(ChatColor.RED + "You are not allowed to be in that class!");
+                    return true;
                 }
                 for (String group : getGroups(sender.getName())) {
                     if (getClass(group) != null) {
@@ -116,14 +116,10 @@ public class Classes extends JavaPlugin {
         }
         // Who
         if (args[0].equalsIgnoreCase("who")) {
-            int count = 0;
-            for (String group : getGroups(args[1])) {
-                if (getClass(group) != null) {
-                    count++;
-                    sender.sendMessage(ChatColor.YELLOW + args[1] + " is in class: " + group);
-                }
-            }
-            if (count == 0) {
+            Class clazz = getPlayerClass(args[1]);
+            if (clazz != null) {
+                sender.sendMessage(ChatColor.YELLOW + args[1] + " is in class: " + clazz.name);
+            } else {
                 sender.sendMessage(ChatColor.RED + args[1] + " is in no classes");
             }
             return true;
@@ -133,9 +129,9 @@ public class Classes extends JavaPlugin {
         return true;
     }
 
-    private Class getClass(String name) {
+    private Class getClass(String className) {
         for (Class clazz : classes) {
-            if (name.equalsIgnoreCase(clazz.name)) {
+            if (className.equalsIgnoreCase(clazz.name)) {
                 return clazz;
             }
         }
