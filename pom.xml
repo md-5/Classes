@@ -9,11 +9,18 @@
     <packaging>jar</packaging>
 
     <name>Classes</name>
-    <url>http://maven.apache.org</url>
+    <url>https://github.com/md-5/Classes</url>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
+
+    <repositories>
+        <repository>
+            <id>repobo-snap</id>
+            <url>http://repo.bukkit.org/content/groups/public</url>
+        </repository>
+    </repositories>
 
     <dependencies>
         <dependency>
@@ -27,7 +34,7 @@
             <version>1337-SNAPSHOT</version>
         </dependency>
         <dependency>
-            <groupId>com.iCo6</groupId>
+            <groupId>com.iCo5</groupId>
             <artifactId>iConomy</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
